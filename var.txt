@@ -1,0 +1,5 @@
+/Users/pet/Desktop/christian/Registration_project/Data/Osteo6/PET/Hyperpet_Osteomyelit6/Hyperpet_Piglet/Head_MRAC_PET_60min_AC_Images_46/
+/Users/pet/Desktop/christian/Registration_project/Data/Osteo6/MRI_at_CSI_2D/Hyperpet_Osteomyelit6/Hyperpet_Piglet/t2_tse_tra_1skive_30/IM-0001-0001.dcm
+/Users/pet/Desktop/christian/Registration_project/Data/Osteo6/CSI_data/033csi_fid_13C_TR80ms/1.3.12.2.1107.5.2.38.51014.2017082310422191387008736.dcm
+tricubic
+
