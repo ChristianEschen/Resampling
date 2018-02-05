@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb 22 20:27:24 2017
@@ -42,7 +43,7 @@ IPP_loc=a.find('ImagePositionPatient')
 IPP=re.findall(r"[-+]?\d*\.\d+|\d+", a[IPP_loc:IPP_loc+300])
 IPP=map(float,IPP)
 IPP=IPP[0:3]
-
+print('readed image position patient', IPP)
 
 # read matrix size
 
@@ -67,17 +68,27 @@ CSIheader=copy.copy(MheaderORG)
 # Find phase encoding direction
 
 phase_direction=MheaderORG.InplanePhaseEncodingDirection
-
+print('phase_direction',phase_direction)
+############################
 if phase_direction== 'COL':
     FOV_loc2=a.find('sSpecPara.sVoI.dPhaseFOV')
     FOV_loc1=a.find('sSpecPara.sVoI.dReadoutFOV')
     print "Phase encoding direction is in column direction"
+    print('COL')
+    print('FOV_loc2',FOV_loc2)
+    print('FOV_loc1',FOV_loc1)
 else:
+    #FOV_loc1=a.find('sSpecPara.sVoI.dPhaseFOV')
+    #FOV_loc2=a.find('sSpecPara.sVoI.dReadoutFOV')
+    ##################### changed to ::::
     FOV_loc1=a.find('sSpecPara.sVoI.dPhaseFOV')
     FOV_loc2=a.find('sSpecPara.sVoI.dReadoutFOV')
+    #################
+    print('FOV_loc2',FOV_loc2)
+    print('FOV_loc1',FOV_loc1)
     print "Phase encoding direction is in row direction"
 
-
+#############################
 
 # Localize FOV
 #FOV_loc2=a.find('sSpecPara.sVoI.dPhaseFOV')
@@ -95,6 +106,8 @@ FOV3=map(float, FOV3)
 FOV3=FOV3[0]
 
 FOV=[FOV1,FOV2,FOV3]
+#FOV=[FOV2,FOV1,FOV3]
+
 print 'The field of view in CSI is:'
 print FOV
 
@@ -166,13 +179,24 @@ IPP_cal=np.array([rota2[0,0],rota2[1,0],rota2[2,0]])
 
 result=np.allclose(IPP, IPP_cal)
 if result is None:
+    print "########################################################################################"
     print "WARNING - No correspondence between calculated ImagePositioPatient and readed ImagePositionPaiten"
+    print "########################################################################################"
+
 elif result:
     print "Correspondence calculated between ImagePositioPatient and readed ImagePositionPaitens"
 else:
+    print "########################################################################################"
     print "WARNING - No correspondence between calculated ImagePositioPatient and readed ImagePositionPaiten"
+    print "########################################################################################"
 
 CSIheader.ImagePositionPatient=IPP
+#print('IPP',IPP,type(IPP))
+#print('IPP_cal',IPP_cal,type(IPP_cal))
+#print "changing to CALCULATED IPP"
+#IPP_cal=IPP_cal.tolist()
+#print('IPP_cal a list?',IPP_cal,type(IPP_cal))
+#CSIheader.ImagePositionPatient=IPP_cal
 
 CSIheader.Rows=int(matrix_dim[0])
 CSIheader.Columns=int(matrix_dim[1])
